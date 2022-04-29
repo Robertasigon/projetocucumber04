@@ -3,7 +3,14 @@ package tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -63,6 +70,18 @@ public class CarrinhoDeComprasTest {
 		//comparando resultado esperado xresultaod obtido 
 		String pagina = driver.getCurrentUrl();
 		assertEquals(pagina,"http://www.lojaexemplodelivros.com.br/checkout/cart/");
+		
+try {
+			
+			String data = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss").format(new Date());
+			
+			File arquivo = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			FileUtils.copyFile(arquivo, new File("c:\\evidencias\\carrinho_de_compras_" + data + ".png"));
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+
 		
 		//fechar navegador
 		driver.close();
